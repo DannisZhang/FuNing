@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funing.dal.db.MobilePhoneNumberMapper">
+	<resultMap id="mobilePhoneNumberMap" type="com.funing.common.model.MobilePhoneNumber">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result property="number" column="number" jdbcType="VARCHAR"/>
+		<result property="operator" column="operator" jdbcType="VARCHAR"/>
+		<result property="attribution" column="attribution" jdbcType="VARCHAR"/>
+		<result property="wholesalePrice" column="wholesale_price" jdbcType="DOUBLE"/>
+		<result property="floorPrice" column="floor_price" jdbcType="DOUBLE"/>
+		<result property="balance" column="balance" jdbcType="DOUBLE"/>
+		<result property="priority" column="priority" jdbcType="INTEGER" />
+		<result property="remark" column="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="allColumns">
+		id,number,operator,attribution,wholesale_price,floor_price,balance,priority,remark,status,created_on,created_by,last_modified_on,last_modified_by
+	</sql>
+
+	<select id="queryById" parameterType="java.lang.Integer" resultMap="mobilePhoneNumberMap">
+		SELECT <include refid="allColumns"/>
+		FROM t_cms_mobile_phone_number
+		WHERE id = #{id}
+	</select>
+
+	<select id="queryByPage" resultMap="mobilePhoneNumberMap">
+		SELECT <include refid="allColumns"/>
+		FROM t_cms_mobile_phone_number
+		WHERE status = 'active'
+		<if test="number != null and number != ''">
+			AND number LIKE CONCAT('%',#{number},'%')
+		</if>
+		<if test="operator != null and operator != 'all'">
+			AND operator LIKE CONCAT('%',#{operator},'%')
+		</if>
+		<if test="attribution != null and attribution != ''">
+			AND attribution LIKE CONCAT('%',#{attribution},'%')
+		</if>
+		ORDER BY priority ASC ,created_on DESC
+		LIMIT #{offset},#{limit}
+	</select>
+
+	<select id="queryTotal" resultType="java.lang.Long">
+		SELECT COUNT(id)
+		FROM t_cms_mobile_phone_number
+		WHERE status = 'active'
+		<if test="number != null and number != ''">
+			AND number LIKE CONCAT('%',#{number},'%')
+		</if>
+		<if test="operator != null and operator != 'all'">
+			AND operator LIKE CONCAT('%',#{operator},'%')
+		</if>
+		<if test="attribution != null and attribution != ''">
+			AND attribution LIKE CONCAT('%',#{attribution},'%')
+		</if>
+	</select>
+</mapper>
