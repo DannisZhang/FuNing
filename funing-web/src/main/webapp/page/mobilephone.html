@@ -124,149 +124,6 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>18713100544</td>
-								<td>中国移动</td>
-								<td>河北省 石家庄</td>
-								<td>￥500</td>
-								<td>￥20</td>
-								<td></td>
-								<td></td>
-								<td>
-									<a href="#" class="btn btn-xs-custom btn-default">收藏</a>
-									<a href="#" class="btn btn-xs-custom btn-default">购买</a>
-								</td>
-							</tr>
-							<tr>
-								<td>13999299996</td>
-								<td>中国移动</td>
-								<td>新疆 乌鲁木齐</td>
-								<td>￥2.80万</td>
-								<td>￥100</td>
-								<td></td>
-								<td></td>
-								<td>
-									<a href="#" class="btn btn-xs-custom btn-default">收藏</a>
-									<a href="#" class="btn btn-xs-custom btn-default">购买</a>
-								</td>
-							</tr>
-							<tr>
-								<td>18199888886</td>
-								<td>中国电信</td>
-								<td>新疆 乌鲁木齐</td>
-								<td>￥2.00万</td>
-								<td>￥100</td>
-								<td></td>
-								<td></td>
-								<td>
-									<a href="#" class="btn btn-xs-custom btn-default">收藏</a>
-									<a href="#" class="btn btn-xs-custom btn-default">购买</a>
-								</td>
-							</tr>
-							<tr>
-								<td>15280000000</td>
-								<td>中国电信</td>
-								<td>福建省 福州</td>
-								<td>￥35.62万</td>
-								<td>￥120000</td>
-								<td></td>
-								<td></td>
-								<td>
-									<a href="#" class="btn btn-xs-custom btn-default">收藏</a>
-									<a href="#" class="btn btn-xs-custom btn-default">购买</a>
-								</td>
-							</tr>
-							<tr>
-								<td>18060688888</td>
-								<td>中国电信</td>
-								<td>福建省 福州</td>
-								<td>￥28.00万</td>
-								<td>￥0</td>
-								<td></td>
-								<td></td>
-								<td>
-									<a href="#" class="btn btn-xs-custom btn-default">收藏</a>
-									<a href="#" class="btn btn-xs-custom btn-default">购买</a>
-								</td>
-							</tr>
-							<tr>
-								<td>13599969999</td>
-								<td>中国移动</td>
-								<td>福建省 福州</td>
-								<td>￥23.75万</td>
-								<td>￥0</td>
-								<td></td>
-								<td></td>
-								<td>
-									<a href="#" class="btn btn-xs-custom btn-default">收藏</a>
-									<a href="#" class="btn btn-xs-custom btn-default">购买</a>
-								</td>
-							</tr>
-							<tr>
-								<td>18859119999</td>
-								<td>中国移动</td>
-								<td>福建省 福州</td>
-								<td>￥11.88万</td>
-								<td>￥140000</td>
-								<td></td>
-								<td></td>
-								<td>
-									<a href="#" class="btn btn-xs-custom btn-default">收藏</a>
-									<a href="#" class="btn btn-xs-custom btn-default">购买</a>
-								</td>
-							</tr>
-							<tr>
-								<td>15060668888</td>
-								<td>中国电信</td>
-								<td>福建省 福州</td>
-								<td>￥8.31万</td>
-								<td>￥0</td>
-								<td></td>
-								<td></td>
-								<td>
-									<a href="#" class="btn btn-xs-custom btn-default">收藏</a>
-									<a href="#" class="btn btn-xs-custom btn-default">购买</a>
-								</td>
-							</tr>
-							<tr>
-								<td>18705069999</td>
-								<td>中国移动</td>
-								<td>福建省 福州</td>
-								<td>￥6.65万</td>
-								<td>￥0</td>
-								<td></td>
-								<td></td>
-								<td>
-									<a href="#" class="btn btn-xs-custom btn-default">收藏</a>
-									<a href="#" class="btn btn-xs-custom btn-default">购买</a>
-								</td>
-							</tr>
-							<tr>
-								<td>18860167888</td>
-								<td>中国移动</td>
-								<td>福建省 福州</td>
-								<td>￥1.43万</td>
-								<td>￥0</td>
-								<td></td>
-								<td></td>
-								<td>
-									<a href="#" class="btn btn-xs-custom btn-default">收藏</a>
-									<a href="#" class="btn btn-xs-custom btn-default">购买</a>
-								</td>
-							</tr>
-							<tr>
-								<td>18350000001</td>
-								<td>中国移动</td>
-								<td>福建省 福州</td>
-								<td>￥7.95万</td>
-								<td>￥0</td>
-								<td></td>
-								<td></td>
-								<td>
-									<a href="#" class="btn btn-xs-custom btn-default">收藏</a>
-									<a href="#" class="btn btn-xs-custom btn-default">购买</a>
-								</td>
-							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -299,7 +156,7 @@
 				$.ajax({
 					url: "../mobilePhoneNumber/queryByPage.json",
 					method: "post",
-					data: {"page": 1,"rows":10},
+					data: {"page": 1,"rows":30},
 					success: function (result) {
 						var mobilePhoneNumberTrsHtml = '';
 						$.each(result.rows,function(name,value){
@@ -314,17 +171,17 @@
 							mobilePhoneNumberTr += this.attribution;
 							mobilePhoneNumberTr += '</td>';
 							mobilePhoneNumberTr += '<td>';
-							mobilePhoneNumberTr += this.wholesalePrice;
+							mobilePhoneNumberTr += '￥' + this.wholesalePrice;
 							mobilePhoneNumberTr += '</td>';
 							mobilePhoneNumberTr += '<td>';
-							mobilePhoneNumberTr += this.balance;
+							mobilePhoneNumberTr += '￥' + this.balance;
 							mobilePhoneNumberTr += '</td>';
 							mobilePhoneNumberTr += '<td>';
 							mobilePhoneNumberTr += '</td>';
 							mobilePhoneNumberTr += '<td>';
 							mobilePhoneNumberTr += '</td>';
 							mobilePhoneNumberTr += '<td>';
-							mobilePhoneNumberTr += '<a href="#" class="btn btn-xs-custom btn-default">收藏</a>';
+							mobilePhoneNumberTr += '<a href="#" class="btn btn-xs-custom btn-default">收藏</a> ';
 							mobilePhoneNumberTr += '<a href="#" class="btn btn-xs-custom btn-default">购买</a>';
 							mobilePhoneNumberTr += '</td>';
 							mobilePhoneNumberTr += '</tr>';
@@ -338,5 +195,4 @@
 			});
 		</script>
 	</body>
-
 </html>
