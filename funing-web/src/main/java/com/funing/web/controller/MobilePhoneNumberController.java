@@ -29,7 +29,7 @@ public class MobilePhoneNumberController {
      * @param queryParams 查询参数
      * @return 查询结果
      */
-    @RequestMapping(value = "queryByPage.json")
+    @RequestMapping(value = "queryByPage.ajax")
     @ResponseBody
     public PaginationQueryResult<?> queryByPage(QueryParams queryParams) {
         return mobilePhoneNumberService.queryByPage(queryParams);
