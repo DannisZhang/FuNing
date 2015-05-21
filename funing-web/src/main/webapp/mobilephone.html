@@ -145,6 +145,12 @@
     </div>
 </div>
 
+<div id="go-top">
+    <a id="go_top_btn" class="btn btn-sm btn-default">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+    </a>
+</div>
+
 <footer>
     <div class="container footer1">
         <p>Copyright&copy;哲远贸易有限公司 2015-2015 www.ilianghao.net, All Rights Reserved.</p>
@@ -196,6 +202,19 @@
         });
 
         queryMobilePhoneNumber(1);
+
+        $(window).scroll(function(){
+            var scroll = document.documentElement.scrollTop + document.body.scrollTop;
+            if (scroll > 200) {
+                $('#go-top').fadeIn(300);
+            } else {
+                $('#go-top').stop().fadeOut(300);
+            }
+        });
+
+        $('#go_top_btn').click(function(){
+            $("html,body").animate({scrollTop:"0px"},200);
+        });
     });
 
     function queryMobilePhoneNumber(pageNo) {
