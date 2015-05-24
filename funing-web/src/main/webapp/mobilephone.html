@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="author" content="Dannis">
 
-    <title>手机号码-哲远贸易有限公司</title>
+    <title>靓号网-手机靓号选号，网上选号</title>
     <link rel="stylesheet" type="text/css" href="static/bootstrap/css/yeti.bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/custom.css"/>
@@ -18,49 +18,235 @@
 <body>
 <div class="top-navbar">
     <div class="container">
-        <div class="top-navbar-left">
-            买靓号，购二手车，就来哲远
-        </div>
-        <div class="top-navbar-right">
-            您好，欢迎光临哲远贸易有限公司！
-            <a>登录</a>|<a>注册</a>|<a>收藏</a>
-        </div>
-    </div>
-</div>
-<div class="banner-row">
-    <div class="container">
         <div class="row">
-            <div class="col-md-7">
-                <h1>哲远贸易有限公司</h1>
-                <h5>ZheYuan Trading Co., Ltd.</h5>
+            <div class="col-md-6 top-navbar-left">
+                <span>买靓号，就来靓号网</span><a>会员登录</a>|<a>免费注册</a>
             </div>
-            <div class="col-md-5">
-                <p>买靓号,购座驾</p>
+            <div class="col-md-6 top-navbar-right">
+                <a>加入收藏</a>|<a>设为首页</a>|<a>网站地图</a>|<a>联系我们</a>
             </div>
         </div>
     </div>
 </div>
-<nav class="navbar navbar-inverse" role="navigation">
-    <div class="container">
-        <div>
-            <ul class="nav navbar-nav">
-                <li class="disabled"><a href="index.html">首页</a></li>
-                <li class="active"><a href="mobilephone.html">手机靓号</a></li>
-                <li class="disabled"><a href="about.html">关于我们</a></li>
-            </ul>
+<div class="container">
+    <div class="row banner-row">
+        <div class="col-md-6">
+            <h1>靓号网</h1>
+            <h5>iLiangHao</h5>
         </div>
-        <div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+</div>
+<!-- 导航 -->
+<nav class="navbar navbar-inverse" style="margin-bottom: 6px">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#navbar-collapse-2">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">靓号网</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-2">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="mobilephone.html">手机靓号</a></li>
+                <li class="disabled"><a href="#">关于我们</a></li>
+            </ul>
             <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
-                    <input type="text" class="form-control input-sm" placeholder="请输入您喜欢的数字">
+                    <input class="form-control" placeholder="请输入您喜欢的数字" type="text">
                 </div>
                 <button type="submit" class="btn btn-sm btn-warning">抢号</button>
             </form>
         </div>
     </div>
 </nav>
-
+<!-- 页面主体 -->
 <div class="container">
+    <!-- 位置导航 -->
+    <div class="row">
+        <div class="col-md-12">
+            当前位置：<a href="/">靓号网</a>><a href="mobilephone.html">手机靓号</a>
+        </div>
+    </div>
+    <!-- 搜索区域 -->
+    <div class="row" style="margin-top: 6px">
+        <div class="col-md-8">
+            <form class="form-horizontal" id="search-number-box">
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-lg-2">
+                            <label class="control-label" style="margin-left: 20px;text-align: left">运营商：</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox">中国移动
+                                </label>
+                                <label>
+                                    <input type="checkbox">中国联通
+                                </label>
+                                <label>
+                                    <input type="checkbox">中国电信
+                                </label>
+                                <label>
+                                    <input type="checkbox">虚拟运营商
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2">
+                            <label class="control-label" style="margin-left: 20px;text-align: left">归属地：</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <label>
+                                <select class="form-control" style="width: 100px;">
+                                    <option>广东省</option>
+                                    <option>福建省</option>
+                                    <option>浙江省</option>
+                                    <option>贵州省</option>
+                                    <option>海南省</option>
+                                </select>
+                            </label>
+                            <label>
+                                <select class="form-control">
+                                    <option>深圳市</option>
+                                    <option>广州市</option>
+                                    <option>福州市</option>
+                                    <option>福宁市</option>
+                                    <option>厦门市</option>
+                                    <option>贵阳市</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2">
+                            <label for="selectNumberPrefix" class="control-label" style="margin-left: 20px;text-align: left">号段：</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <label>
+                                <select class="form-control" id="selectNumberPrefix" style="width: 100px;">
+                                    <option>不限号段</option>
+                                    <option>中国移动</option>
+                                    <option>139</option>
+                                    <option>138</option>
+                                    <option>137</option>
+                                    <option>136</option>
+                                    <option>134</option>
+                                    <option>中国联通</option>
+                                    <option>130</option>
+                                    <option>131</option>
+                                    <option>132</option>
+                                    <option>155</option>
+                                    <option>156</option>
+                                    <option>185</option>
+                                    <option>186</option>
+                                    <option>中国电信</option>
+                                    <option>133</option>
+                                    <option>153</option>
+                                    <option>180</option>
+                                    <option>181</option>
+                                    <option>189</option>
+                                    <option>虚拟运营商</option>
+                                    <option>170</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2">
+                            <label class="control-label" style="margin-left: 20px;text-align: left">价格范围：</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <label>
+                                <select class="form-control">
+                                    <option>不限价格</option>
+                                    <option>价格面议</option>
+                                    <option>100元以下</option>
+                                    <option>100-500元</option>
+                                    <option>500-1000元</option>
+                                    <option>1000-2000元</option>
+                                    <option>2000-5000元</option>
+                                    <option>5000-10000元</option>
+                                    <option>10000元以上</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2">
+                            <label class="control-label" style="margin-left: 20px;text-align: left">号码规律：</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <label>
+                                <select class="form-control">
+                                    <option value="" selected="selected">不限规律</option>
+                                    <option value="0">普通号码</option>
+                                    <option value="1">尾数ABCDE+</option>
+                                    <option value="2">尾数AAAAA+</option>
+                                    <option value="3">尾数AAABBB</option>
+                                    <option value="4">尾数AABBCC</option>
+                                    <option value="5">尾数ABCABC</option>
+                                    <option value="6">尾数ABBABB</option>
+                                    <option value="7">尾数AABAA</option>
+                                    <option value="8">尾数AAABB</option>
+                                    <option value="9">尾数AABBB</option>
+                                    <option value="10">尾数ABCDE</option>
+                                    <option value="11">尾数AAAAA</option>
+                                    <option value="12">尾数ABCD</option>
+                                    <option value="13">尾数AAAA</option>
+                                    <option value="14">尾数AABB</option>
+                                    <option value="15">尾数ABBA</option>
+                                    <option value="16">尾数AAAB</option>
+                                    <option value="17">尾数ABAB</option>
+                                    <option value="18">尾数AAA</option>
+                                    <option value="19">尾数ABC</option>
+                                    <option value="20">中间AAABBB</option>
+                                    <option value="21">中间AAAA+</option>
+                                    <option value="22">中间AABBB</option>
+                                    <option value="23">中间AAABB</option>
+                                    <option value="24">中间AAAA</option>
+                                    <option value="25">中间AABB</option>
+                                    <option value="26">中间AAA</option>
+                                    <option value="27">中间AABBCC</option>
+                                    <option value="28">尾数AA</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2">
+                            <label class="control-label" style="margin-left: 20px;text-align: left">包含数字：</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <label>
+                                <input class="form-control" type="text"
+                                       style="width: 120px;height: 22px;padding: 0 2px;font-size: 12px">
+                            </label>
+                            <div class="checkbox" style="display: inline-block;">
+                                <label>
+                                    <input type="checkbox">尾数
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-4">
+                            <button type="submit" class="btn btn-xs btn-primary">
+                                <span class="glyphicon glyphicon-search" style="margin-right: 3px"></span>搜索
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-3">
             <div class="panel panel-info">
@@ -150,7 +336,7 @@
         <span class="glyphicon glyphicon-chevron-up"></span>
     </a>
 </div>
-
+<!-- 页脚 -->
 <footer>
     <div class="container footer1">
         <p>Copyright&copy;哲远贸易有限公司 2015-2015 www.ilianghao.net, All Rights Reserved.</p>
@@ -203,7 +389,7 @@
 
         queryMobilePhoneNumber(1);
 
-        $(window).scroll(function(){
+        $(window).scroll(function () {
             var scroll = document.documentElement.scrollTop + document.body.scrollTop;
             if (scroll > 200) {
                 $('#go-top').fadeIn(300);
@@ -212,8 +398,8 @@
             }
         });
 
-        $('#go_top_btn').click(function(){
-            $("html,body").animate({scrollTop:"0px"},200);
+        $('#go_top_btn').click(function () {
+            $("html,body").animate({scrollTop: "0px"}, 200);
         });
     });
 
@@ -252,7 +438,7 @@
                     mobilePhoneNumberTr += this.attribution;
                     mobilePhoneNumberTr += '</td>';
                     mobilePhoneNumberTr += '<td>';
-                    mobilePhoneNumberTr +=  '<span style="font-size: 12px;color: #F60;">' + '￥' + this.wholesalePrice + '</span>';
+                    mobilePhoneNumberTr += '<span style="font-size: 12px;color: #F60;">' + '￥' + this.wholesalePrice + '</span>';
                     mobilePhoneNumberTr += '</td>';
                     mobilePhoneNumberTr += '<td>';
                     mobilePhoneNumberTr += '<span style="font-size: 12px;color: #539F53;">' + '￥' + this.balance + '</span>';
