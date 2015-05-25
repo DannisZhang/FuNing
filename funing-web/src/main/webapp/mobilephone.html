@@ -75,7 +75,7 @@
     </div>
     <!-- 搜索区域 -->
     <div class="row" style="margin-top: 6px">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <form class="form-horizontal" id="search-number-box">
                 <fieldset>
                     <div class="form-group">
@@ -127,7 +127,8 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-2">
-                            <label for="selectNumberPrefix" class="control-label" style="margin-left: 20px;text-align: left">号段：</label>
+                            <label for="selectNumberPrefix" class="control-label"
+                                   style="margin-left: 20px;text-align: left">号段：</label>
                         </div>
                         <div class="col-lg-10">
                             <label>
@@ -229,8 +230,9 @@
                                 <input class="form-control" type="text"
                                        style="width: 120px;height: 22px;padding: 0 2px;font-size: 12px">
                             </label>
+
                             <div class="checkbox" style="display: inline-block;">
-                                <label>
+                                <label style="float: left;">
                                     <input type="checkbox">尾数
                                 </label>
                             </div>
@@ -246,13 +248,11 @@
                 </fieldset>
             </form>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-3">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        行业动态
+                        网站公告
                     </div>
                 </div>
                 <div class="panel-body">
@@ -270,38 +270,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="banner">
-                <ul>
-                    <li><a><img src="images/car_1.png"/></a></li>
-                    <li><img src="images/car_2.png"/></li>
-                    <li><img src="images/car_3.png"/></li>
-                    <li><img src="images/car_4.png"/></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        购买指引
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <p>1.选择靓号</p>
-
-                    <p>2.生成订单</p>
-
-                    <p>3.订单支付</p>
-
-                    <p>4.使用靓号</p>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-lg-9">
             <table class="table" id="mobilePhoneNumberTable">
                 <tbody>
 
@@ -324,9 +296,29 @@
                 <tbody>
                 </tbody>
             </table>
-            <div style="text-align: right">
-                <ul class="pagination" id="pagination"></ul>
-            </div>
+        </div>
+    </div>
+    <!-- 分页 -->
+    <div class="row">
+        <div class="col-lg-9" style="text-align: center">
+            <nav>
+                <ul class="pagination" id="pagination">
+                    <li><a href="javascript:void(0);">首页</a></li>
+                    <li><a href="javascript:void(0);">上一页</a></li>
+                    <li><a href="javascript:void(0);">1</a></li>
+                    <li><a href="javascript:void(0);">2</a></li>
+                    <li><a href="javascript:void(0);">3</a></li>
+                    <li><a href="javascript:void(0);">4</a></li>
+                    <li><a href="javascript:void(0);">5</a></li>
+                    <li><a href="javascript:void(0);">...</a></li>
+                    <li><a href="javascript:void(0);">20</a></li>
+                    <li><a href="javascript:void(0);" id="nextPage">下一页</a></li>
+                    <li><a href="javascript:void(0);" id="endPage">末页</a></li>
+                    <li>
+                        <span>共1页</span><span>共120条</span>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -344,6 +336,7 @@
 </footer>
 <script type="text/javascript">
     var PAGE_SIZE = 12;
+    var currentPage = 1;
     $(function () {
         $('.banner').unslider({
             speed: 500,               //  The speed to animate each slide (in milliseconds)
@@ -409,21 +402,7 @@
             method: "post",
             data: {"page": pageNo, "rows": PAGE_SIZE},
             success: function (result) {
-                var total = result.total;
-                var pageCount = 1;
-                if (total > PAGE_SIZE) {
-                    pageCount = Math.ceil(total / PAGE_SIZE);
-                }
-                var paginationHtml = '<li><a href="javascript:void(0);">&laquo;</a></li>';
-                for (var pageIndex = 1; pageIndex <= pageCount; pageIndex++) {
-                    if (pageNo == pageIndex) {
-                        paginationHtml += '<li class="active"><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + pageIndex + ')">' + pageIndex + '</a></li>';
-                    } else {
-                        paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + pageIndex + ')">' + pageIndex + '</a></li>';
-                    }
-                }
-                paginationHtml += '<li><a href="javascript:void(0);">&raquo;</a></li>';
-                $('#pagination').html(paginationHtml);
+                buildPaginationBar(pageNo,result.total);
 
                 var mobilePhoneNumberTrsHtml = '';
                 $.each(result.rows, function (name, value) {
@@ -483,6 +462,28 @@
         mobilePhoneNumberTd += "</a></td>";
 
         return mobilePhoneNumberTd;
+    }
+
+    function buildPaginationBar(currentPage,total) {
+        if (currentPage < 1) {
+            return;
+        }
+        var totalPage = 1;
+        if (total > PAGE_SIZE) {
+            totalPage = Math.ceil(total / PAGE_SIZE);
+        }
+        var paginationHtml = '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(1)">首页</a></li>';
+        paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + (currentPage - 1) + ')">上一页</a></li>';
+        for (var pageIndex = 1; pageIndex <= totalPage; pageIndex++) {
+            if (currentPage == pageIndex) {
+                paginationHtml += '<li class="active"><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + pageIndex + ')">' + pageIndex + '</a></li>';
+            } else {
+                paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + pageIndex + ')">' + pageIndex + '</a></li>';
+            }
+        }
+        paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + (currentPage + 1) + ')">下一页</a></li>';
+        paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + totalPage + ')">尾页</a></li>';
+        $('#pagination').html(paginationHtml);
     }
 </script>
 </body>
