@@ -100,39 +100,39 @@ a {
     color: #323c46;
 }
 
-#search-number-box {
+#searchNumberForm {
     background-color: #F5F5F5;
     border-top: 2px solid #0079A1;
     border-bottom: 1px solid #0079A1;
 }
 
-#search-number-box .form-group {
+#searchNumberForm .form-group {
     margin-bottom: 5px;
 }
 
-#search-number-box .control-label {
+#searchNumberForm .control-label {
     text-align: left;
     padding-top: 0;
 }
 
-#search-number-box .btn {
+#searchNumberForm .btn {
     width: 60px;
 }
 
-#search-number-box select {
+#searchNumberForm select {
     width: 120px;
     height: 22px;
     padding: 0 2px;
     font-size: 12px;
 }
 
-#search-number-box .checkbox {
+#searchNumberForm .checkbox {
     padding-top: 4px;
 }
 
-#search-number-box .checkbox input {
+#searchNumberForm .checkbox input {
     position: relative;
 }
-#search-number-box .checkbox label {
+#searchNumberForm .checkbox label {
     margin-right: 5px;
 }

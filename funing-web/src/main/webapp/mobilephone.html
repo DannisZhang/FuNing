@@ -76,7 +76,7 @@
     <!-- 搜索区域 -->
     <div class="row" style="margin-top: 6px">
         <div class="col-md-9">
-            <form class="form-horizontal" id="search-number-box">
+            <form class="form-horizontal" id="searchNumberForm">
                 <fieldset>
                     <div class="form-group">
                         <div class="col-lg-2">
@@ -85,16 +85,16 @@
                         <div class="col-lg-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox">中国移动
+                                    <input type="checkbox" name="operator" value="ChinaMobile">中国移动
                                 </label>
                                 <label>
-                                    <input type="checkbox">中国联通
+                                    <input type="checkbox" name="operator" value="ChinaUnicom">中国联通
                                 </label>
                                 <label>
-                                    <input type="checkbox">中国电信
+                                    <input type="checkbox" name="operator" value="chinaTelecom">中国电信
                                 </label>
                                 <label>
-                                    <input type="checkbox">虚拟运营商
+                                    <input type="checkbox" name="operator" value="VirtualNetworkOperator">虚拟运营商
                                 </label>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                         </div>
                         <div class="col-lg-10">
                             <label>
-                                <select class="form-control" style="width: 100px;">
+                                <select class="form-control" style="width: 100px;" name="attributionProvince">
                                     <option>广东省</option>
                                     <option>福建省</option>
                                     <option>浙江省</option>
@@ -114,7 +114,7 @@
                                 </select>
                             </label>
                             <label>
-                                <select class="form-control">
+                                <select class="form-control" name="attributionCity">
                                     <option>深圳市</option>
                                     <option>广州市</option>
                                     <option>福州市</option>
@@ -132,7 +132,7 @@
                         </div>
                         <div class="col-lg-10">
                             <label>
-                                <select class="form-control" id="selectNumberPrefix" style="width: 100px;">
+                                <select class="form-control" id="selectNumberPrefix" style="width: 100px;" name="numberSection">
                                     <option>不限号段</option>
                                     <option>中国移动</option>
                                     <option>139</option>
@@ -166,7 +166,7 @@
                         </div>
                         <div class="col-lg-10">
                             <label>
-                                <select class="form-control">
+                                <select class="form-control" name="priceRange">
                                     <option>不限价格</option>
                                     <option>价格面议</option>
                                     <option>100元以下</option>
@@ -186,7 +186,7 @@
                         </div>
                         <div class="col-lg-10">
                             <label>
-                                <select class="form-control">
+                                <select class="form-control" name="numberRule">
                                     <option value="" selected="selected">不限规律</option>
                                     <option value="0">普通号码</option>
                                     <option value="1">尾数ABCDE+</option>
@@ -227,22 +227,22 @@
                         </div>
                         <div class="col-lg-10">
                             <label>
-                                <input class="form-control" type="text"
+                                <input class="form-control" type="text" name="containNumeric"
                                        style="width: 120px;height: 22px;padding: 0 2px;font-size: 12px">
                             </label>
 
                             <div class="checkbox" style="display: inline-block;">
                                 <label style="float: left;">
-                                    <input type="checkbox">尾数
+                                    <input type="checkbox" name="isEndNumeric">尾数
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-4">
-                            <button type="submit" class="btn btn-xs btn-primary">
+                            <a class="btn btn-xs btn-primary" id="searchNumberButton">
                                 <span class="glyphicon glyphicon-search" style="margin-right: 3px"></span>搜索
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </fieldset>
@@ -393,6 +393,24 @@
 
         $('#go_top_btn').click(function () {
             $("html,body").animate({scrollTop: "0px"}, 200);
+        });
+
+        $('#searchNumberButton').click(function () {
+            var $searchNumberForm = $('#searchNumberForm');
+            var operators = [];
+            $searchNumberForm.find('input[type="checkbox"][name="operator"]:checked').each(function () {
+                operators.push($(this).val());
+            });
+            var param = {};
+            param.operators = operators.join(',');
+            param.attribution = $searchNumberForm.find('select[name="attributionCity"]').val();
+            param.numberSection = $searchNumberForm.find('select[name="numberSection"]').val();
+            param.priceRange = $searchNumberForm.find('select[name="priceRange"]').val();
+            param.numberRule = $searchNumberForm.find('select[name="numberRule"]').val();
+            param.containNumeric = $searchNumberForm.find('input[type="text"][name="containNumeric"]').val();
+            param.isEndNumeric = $searchNumberForm.find('input[type="checkbox"][name="isEndNumeric"]').prop('checked');
+
+            console.log(param);
         });
     });
 
