@@ -91,7 +91,7 @@
                                     <input type="checkbox" name="operator" value="ChinaUnicom">中国联通
                                 </label>
                                 <label>
-                                    <input type="checkbox" name="operator" value="chinaTelecom">中国电信
+                                    <input type="checkbox" name="operator" value="ChinaTelecom">中国电信
                                 </label>
                                 <label>
                                     <input type="checkbox" name="operator" value="VirtualNetworkOperator">虚拟运营商
@@ -338,22 +338,6 @@
     var PAGE_SIZE = 12;
     var currentPage = 1;
     $(function () {
-        $('.banner').unslider({
-            speed: 500,               //  The speed to animate each slide (in milliseconds)
-            delay: 3000,              //  The delay between slide animations (in milliseconds)
-            complete: function () {
-            },  //  A function that gets called after every slide animation
-            keys: true,               //  Enable keyboard (left, right) arrow shortcuts
-            dots: true,               //  Display dot navigation
-            fluid: false              //  Support responsive design. May break non-responsive designs
-        });
-        $('.unslider-arrow').click(function () {
-            var fn = this.className.split(' ')[1];
-
-            //  Either do unslider.data('unslider').next() or .prev() depending on the className
-            unslider.data('unslider')[fn]();
-        });
-
         $.ajax({
             url: "mobilePhoneNumber/queryByPage.ajax",
             method: "post",
@@ -380,7 +364,7 @@
             }
         });
 
-        queryMobilePhoneNumber(1);
+        queryMobilePhoneNumber(1,null);
 
         $(window).scroll(function () {
             var scroll = document.documentElement.scrollTop + document.body.scrollTop;
@@ -401,24 +385,24 @@
             $searchNumberForm.find('input[type="checkbox"][name="operator"]:checked').each(function () {
                 operators.push($(this).val());
             });
-            var param = {};
-            param.operators = operators.join(',');
-            param.attribution = $searchNumberForm.find('select[name="attributionCity"]').val();
-            param.numberSection = $searchNumberForm.find('select[name="numberSection"]').val();
-            param.priceRange = $searchNumberForm.find('select[name="priceRange"]').val();
-            param.numberRule = $searchNumberForm.find('select[name="numberRule"]').val();
-            param.containNumeric = $searchNumberForm.find('input[type="text"][name="containNumeric"]').val();
-            param.isEndNumeric = $searchNumberForm.find('input[type="checkbox"][name="isEndNumeric"]').prop('checked');
+            var params = {};
+            params.operators = operators.join(',');
+            params.attribution = $searchNumberForm.find('select[name="attributionCity"]').val();
+            params.numberSection = $searchNumberForm.find('select[name="numberSection"]').val();
+            params.priceRange = $searchNumberForm.find('select[name="priceRange"]').val();
+            params.numberRule = $searchNumberForm.find('select[name="numberRule"]').val();
+            params.containNumeric = $searchNumberForm.find('input[type="text"][name="containNumeric"]').val();
+            params.isEndNumeric = $searchNumberForm.find('input[type="checkbox"][name="isEndNumeric"]').prop('checked');
 
-            console.log(param);
+            queryMobilePhoneNumber(1,params);
         });
     });
 
-    function queryMobilePhoneNumber(pageNo) {
+    function queryMobilePhoneNumber(pageNo,params) {
         $.ajax({
             url: "mobilePhoneNumber/queryByPage.ajax",
             method: "post",
-            data: {"page": pageNo, "rows": PAGE_SIZE},
+            data: {"page": pageNo, "rows": PAGE_SIZE,"params":params},
             success: function (result) {
                 buildPaginationBar(pageNo,result.total);
 
