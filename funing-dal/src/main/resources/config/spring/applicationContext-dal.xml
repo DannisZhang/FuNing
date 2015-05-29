@@ -32,5 +32,5 @@
         <property name="mapperLocations" value="classpath:config/mybatis-mapper/*Mapper.xml"/>
     </bean>
 
-    <mybatis:scan base-package="com.funing.dal.db"/>
+    <mybatis:scan base-package="com.zheyuan.dal.db"/>
 </beans>
