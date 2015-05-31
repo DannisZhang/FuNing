@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoding>UTF-8</encoding>
+		<encoder>
+			<pattern>%d{HH:mm:ss} %-5level %c:%L - %m%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/data/logs/zheyuan/debug.log</file>
+		<append>true</append>
+		<encoding>UTF-8</encoding>
+		<encoder>
+			<pattern>%date [%thread] %-5level %logger{10}:%L - %msg%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/data/logs/zheyuan/debug.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+		</rollingPolicy>
+	</appender>
+	<root level="DEBUG">
+		<!--<appender-ref ref="FILE" />-->
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>

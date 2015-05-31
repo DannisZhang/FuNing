@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Dannis">
+
+    <title>爱靓号-号码详情</title>
+    <link rel="stylesheet" type="text/css" href="static/bootstrap/css/yeti.bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/default.css"/>
+
+    <script src="static/js/jquery-1.11.2.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/js/unslider.js"></script>
+</head>
+<body>
+<div class="top-navbar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 top-navbar-left">
+                <span>买靓号，就来爱靓号</span><a>会员登录</a>|<a>免费注册</a>
+            </div>
+            <div class="col-md-6 top-navbar-right">
+                <a>加入收藏</a>|<a>设为首页</a>|<a>网站地图</a>|<a>联系我们</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row banner-row">
+        <div class="col-md-6">
+            <h1>爱靓号</h1>
+            <h5>iLiangHao</h5>
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+</div>
+<!-- 导航 -->
+<nav class="navbar navbar-inverse" style="margin-bottom: 6px">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#navbar-collapse-2">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">爱靓号</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-2">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="mobilephone.html">手机靓号</a></li>
+                <li class="disabled"><a href="#">关于我们</a></li>
+            </ul>
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input class="form-control" placeholder="请输入您喜欢的数字" type="text">
+                </div>
+                <button type="submit" class="btn btn-sm btn-warning">抢号</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<!-- 页面主体 -->
+<div class="container">
+    <!-- 位置导航 -->
+    <div class="row">
+        <div class="col-md-12">
+            当前位置：<a href="index.html">爱靓号</a>><a href="mobilephone.html">手机靓号</a>><span>号码详情</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9">
+            <table class="table table-hover " id="mobilePhoneNumberDetailTable">
+                <thead>
+                <tr>
+                    <th colspan="2" style="font-size: 16px;color: #0079A1;">号码详情</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="go-top">
+    <a id="go_top_btn" class="btn btn-sm btn-default">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+    </a>
+</div>
+<!-- 页脚 -->
+<footer>
+    <div class="container footer1">
+        <p>Copyright&copy;哲远贸易有限公司 2015-2015 www.ilianghao.net, All Rights Reserved.</p>
+    </div>
+</footer>
+<script type="text/javascript">
+    $(function () {
+        var urlParams = extractUrlParams();
+        $.ajax({
+            url: "mobilePhoneNumber/queryDetail.ajax",
+            method: "post",
+            data: urlParams,
+            success: function (result) {
+                var mobilePhoneNumber = result.data;
+                var mobilePhoneNumberTrs = '';
+
+                mobilePhoneNumberTrs += '<tr>';
+                mobilePhoneNumberTrs += '<td style="width: 15%;text-align: right;font-weight: bold;">手机号码：</td>';
+                mobilePhoneNumberTrs += '<td style="color: #0079A1;">' + mobilePhoneNumber.number + '</td>';
+                mobilePhoneNumberTrs += '</tr>';
+
+                mobilePhoneNumberTrs += '<tr>';
+                mobilePhoneNumberTrs += '<td style="width: 15%;text-align: right;font-weight: bold;">运营商：</td>';
+                mobilePhoneNumberTrs += '<td>' + mobilePhoneNumber.operator + '</td>';
+                mobilePhoneNumberTrs += '</tr>';
+
+                mobilePhoneNumberTrs += '<tr>';
+                mobilePhoneNumberTrs += '<td style="width: 15%;text-align: right;font-weight: bold;">归属地：</td>';
+                mobilePhoneNumberTrs += '<td>' + mobilePhoneNumber.attribution + '</td>';
+                mobilePhoneNumberTrs += '</tr>';
+
+                mobilePhoneNumberTrs += '<tr>';
+                mobilePhoneNumberTrs += '<td style="width: 15%;text-align: right;font-weight: bold;">号码售价：</td>';
+                if (mobilePhoneNumber.wholesalePrice > 0) {
+                    mobilePhoneNumberTrs += '<td style="color: #F60;">' + '￥' + mobilePhoneNumber.wholesalePrice + '</td>';
+                } else {
+                    mobilePhoneNumberTrs += '<td>面议</td>';
+                }
+                mobilePhoneNumberTrs += '</tr>';
+
+                mobilePhoneNumberTrs += '<tr>';
+                mobilePhoneNumberTrs += '<td style="width: 15%;text-align: right;font-weight: bold;">含话费：</td>';
+                mobilePhoneNumberTrs += '<td style="color: #F60;">' + '￥' + mobilePhoneNumber.balance + '</td>';
+                mobilePhoneNumberTrs += '</tr>';
+
+                mobilePhoneNumberTrs += '<tr>';
+                mobilePhoneNumberTrs += '<td style="width: 15%;text-align: right;font-weight: bold;">发布时间：</td>';
+                mobilePhoneNumberTrs += '<td>' + mobilePhoneNumber.createdOnStr + '</td>';
+                mobilePhoneNumberTrs += '</tr>';
+
+                $('#mobilePhoneNumberDetailTable').find('tbody').html(mobilePhoneNumberTrs);
+            }
+        });
+    });
+
+    function extractUrlParams() {
+        var params = {};
+        var urlParams = location.search;
+        if (urlParams.indexOf('?') != -1) {
+            urlParams = urlParams.substr(1);
+            var paramArray = urlParams.split('&');
+            for (var i = 0; i < paramArray.length; i++) {
+                params[paramArray[i].split('=')[0]] = decodeURI(paramArray[i].split('=')[1]);
+            }
+        }
+        return params;
+    }
+</script>
+</body>
+</html>

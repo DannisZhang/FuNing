@@ -24,6 +24,14 @@ public interface MobilePhoneNumberMapper {
     MobilePhoneNumber queryById(Integer id);
 
     /**
+     * 根据号码查询手机号码信息
+     *
+     * @param number 手机号码
+     * @return 若存在，返回手机号码信息对象；否则返回null
+     */
+    MobilePhoneNumber queryByNumber(String number);
+
+    /**
      * 分页查询符合查询条件的手机号码
      *
      * @param queryParams 分页查询参数

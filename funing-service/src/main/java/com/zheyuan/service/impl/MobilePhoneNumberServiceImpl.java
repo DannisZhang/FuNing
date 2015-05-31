@@ -25,11 +25,20 @@ public class MobilePhoneNumberServiceImpl implements MobilePhoneNumberService {
         return mobilePhoneNumberManager.queryById(id);
     }
 
+    @Override
+    public MobilePhoneNumber queryByNumber(String number) {
+        return mobilePhoneNumberManager.queryByNumber(number);
+    }
+
     public PaginationQueryResult<MobilePhoneNumber> queryByPage(QueryParams queryParams) {
         PaginationQueryResult<MobilePhoneNumber> result = new PaginationQueryResult<>();
         if (null == queryParams) {
             result.setMessage("未指定查询参数");
             return result;
+        }
+        String operators = (String) queryParams.getParams().get("operators");
+        if (operators != null && !"".equals(operators.trim())) {
+            queryParams.getParams().put("operators", operators.split(","));
         }
         result.setTotal(mobilePhoneNumberManager.queryTotal(queryParams.getParams()));
         result.setRows(mobilePhoneNumberManager.queryByPage(queryParams.getParams()));

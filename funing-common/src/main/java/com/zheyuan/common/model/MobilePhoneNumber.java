@@ -1,5 +1,7 @@
 package com.zheyuan.common.model;
 
+import java.util.Date;
+
 /**
  * 手机业务模型
  *
@@ -44,6 +46,14 @@ public class MobilePhoneNumber {
      * 描述
      */
     private String remark;
+    /**
+     * 创建日期
+     */
+    private Date createdOn;
+    /**
+     * 创建日期字符串格式
+     */
+    private String createdOnStr;
 
     public Integer getId() {
         return id == null ? -1 : id;
@@ -115,5 +125,21 @@ public class MobilePhoneNumber {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getCreatedOnStr() {
+        return createdOnStr;
+    }
+
+    public void setCreatedOnStr(String createdOnStr) {
+        this.createdOnStr = createdOnStr;
     }
 }

@@ -34,6 +34,16 @@ public class MobilePhoneNumberManager {
     }
 
     /**
+     * 根据号码查询手机号码信息
+     *
+     * @param number 手机号码
+     * @return 若存在，返回手机号码信息对象；否则返回null
+     */
+    public MobilePhoneNumber queryByNumber(String number) {
+        return mobilePhoneNumberMapper.queryByNumber(number);
+    }
+
+    /**
      * 分页查询手机号码信息
      *
      * @param queryParams 分页查询参数

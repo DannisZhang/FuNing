@@ -85,16 +85,16 @@
                         <div class="col-lg-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="operator" value="ChinaMobile">中国移动
+                                    <input type="checkbox" name="operator" value="中国移动">中国移动
                                 </label>
                                 <label>
-                                    <input type="checkbox" name="operator" value="ChinaUnicom">中国联通
+                                    <input type="checkbox" name="operator" value="中国联通">中国联通
                                 </label>
                                 <label>
-                                    <input type="checkbox" name="operator" value="ChinaTelecom">中国电信
+                                    <input type="checkbox" name="operator" value="中国电信">中国电信
                                 </label>
                                 <label>
-                                    <input type="checkbox" name="operator" value="VirtualNetworkOperator">虚拟运营商
+                                    <input type="checkbox" name="operator" value="虚拟运营商">虚拟运营商
                                 </label>
                             </div>
                         </div>
@@ -115,12 +115,12 @@
                             </label>
                             <label>
                                 <select class="form-control" name="attributionCity">
-                                    <option>深圳市</option>
-                                    <option>广州市</option>
-                                    <option>福州市</option>
-                                    <option>福宁市</option>
-                                    <option>厦门市</option>
-                                    <option>贵阳市</option>
+                                    <option value="深圳">深圳市</option>
+                                    <option value="广州">广州市</option>
+                                    <option value="福州">福州市</option>
+                                    <option value="福宁">福宁市</option>
+                                    <option value="厦门">厦门市</option>
+                                    <option value="贵阳">贵阳市</option>
                                 </select>
                             </label>
                         </div>
@@ -132,7 +132,7 @@
                         </div>
                         <div class="col-lg-10">
                             <label>
-                                <select class="form-control" id="selectNumberPrefix" style="width: 100px;" name="numberSection">
+                                <select class="form-control" id="selectNumberPrefix" style="width: 100px;" name="numberSection" disabled>
                                     <option>不限号段</option>
                                     <option>中国移动</option>
                                     <option>139</option>
@@ -166,7 +166,7 @@
                         </div>
                         <div class="col-lg-10">
                             <label>
-                                <select class="form-control" name="priceRange">
+                                <select class="form-control" name="priceRange" disabled>
                                     <option>不限价格</option>
                                     <option>价格面议</option>
                                     <option>100元以下</option>
@@ -186,7 +186,7 @@
                         </div>
                         <div class="col-lg-10">
                             <label>
-                                <select class="form-control" name="numberRule">
+                                <select class="form-control" name="numberRule" disabled>
                                     <option value="" selected="selected">不限规律</option>
                                     <option value="0">普通号码</option>
                                     <option value="1">尾数ABCDE+</option>
@@ -331,8 +331,10 @@
 <script type="text/javascript">
     var PAGE_SIZE = 12;
     var currentPage = 1;
+    var queryParams = {"page": 1, "rows": PAGE_SIZE};
     $(function () {
-        queryMobilePhoneNumber(1,null);
+        var urlParams = extractUrlParams();
+        queryMobilePhoneNumber(1,urlParams);
 
         $(window).scroll(function () {
             var scroll = document.documentElement.scrollTop + document.body.scrollTop;
@@ -367,10 +369,14 @@
     });
 
     function queryMobilePhoneNumber(pageNo,params) {
+        queryParams.page = pageNo;
+        if (params) {
+            queryParams.params = params;
+        }
         $.ajax({
             url: "mobilePhoneNumber/queryByPage.ajax",
             method: "post",
-            data: {"page": pageNo, "rows": PAGE_SIZE,"params":params},
+            data: queryParams,
             success: function (result) {
                 buildPaginationBar(pageNo,result.total);
 
@@ -378,7 +384,7 @@
                 $.each(result.rows, function (name, value) {
                     var mobilePhoneNumberTr = '<tr>';
                     mobilePhoneNumberTr += '<td>';
-                    mobilePhoneNumberTr += '<span style="color: #0079A1;font-size: 14px;font-weight: bold">' + this.number + '</span>';
+                    mobilePhoneNumberTr += '<a style="color:#0079A1;font-size: 14px;font-weight: bold" href="javascript:void(0);" onclick="gotoMobilePhoneDetailPage(\'' + this.number + '\')">' + this.number + '</a>';
                     mobilePhoneNumberTr += '</td>';
                     mobilePhoneNumberTr += '<td>';
                     mobilePhoneNumberTr += this.operator;
@@ -387,7 +393,11 @@
                     mobilePhoneNumberTr += this.attribution;
                     mobilePhoneNumberTr += '</td>';
                     mobilePhoneNumberTr += '<td>';
-                    mobilePhoneNumberTr += '<span style="font-size: 12px;color: #F60;">' + '￥' + this.wholesalePrice + '</span>';
+                    if (this.wholesalePrice > 0) {
+                        mobilePhoneNumberTr += '<span style="font-size: 12px;color: #F60;">' + '￥' + this.wholesalePrice + '</span>';
+                    } else {
+                        mobilePhoneNumberTr += '<span style="font-size: 12px;color: #F60;">面议</span>';
+                    }
                     mobilePhoneNumberTr += '</td>';
                     mobilePhoneNumberTr += '<td>';
                     mobilePhoneNumberTr += '<span style="font-size: 12px;color: #539F53;">' + '￥' + this.balance + '</span>';
@@ -413,7 +423,7 @@
     function buildMobilePhoneNumberTd(mobilePhoneNumber) {
         var mobilePhoneNumberTd = '<td><a>';
         mobilePhoneNumberTd += '<p style="color: #0079A1;font-size: 14px;font-weight: bold">';
-        mobilePhoneNumberTd += mobilePhoneNumber.number;
+        mobilePhoneNumberTd += '<a href="mobilephoneDetail.html?number="' + mobilePhoneNumber.number + '">' + mobilePhoneNumber.number + '</a>';
         mobilePhoneNumberTd += '</p>';
         mobilePhoneNumberTd += '<p style="font-size: 12px;color: #539F53;">';
         if (mobilePhoneNumber.balance > 0) {
@@ -442,18 +452,35 @@
         if (total > PAGE_SIZE) {
             totalPage = Math.ceil(total / PAGE_SIZE);
         }
-        var paginationHtml = '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(1)">首页</a></li>';
-        paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + (currentPage - 1) + ')">上一页</a></li>';
+        var paginationHtml = '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(1,undefined)">首页</a></li>';
+        paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + (currentPage - 1) + ',undefined)">上一页</a></li>';
         for (var pageIndex = 1; pageIndex <= totalPage; pageIndex++) {
             if (currentPage == pageIndex) {
-                paginationHtml += '<li class="active"><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + pageIndex + ')">' + pageIndex + '</a></li>';
+                paginationHtml += '<li class="active"><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + pageIndex + ',undefined)">' + pageIndex + '</a></li>';
             } else {
-                paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + pageIndex + ')">' + pageIndex + '</a></li>';
+                paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + pageIndex + ',undefined)">' + pageIndex + '</a></li>';
             }
         }
-        paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + (currentPage + 1) + ')">下一页</a></li>';
-        paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + totalPage + ')">尾页</a></li>';
+        paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + (currentPage < totalPage ? currentPage + 1 : totalPage) + ',undefined)">下一页</a></li>';
+        paginationHtml += '<li><a href="javascript:void(0);" onclick="queryMobilePhoneNumber(' + totalPage + ',undefined)">尾页</a></li>';
         $('#pagination').html(paginationHtml);
+    }
+
+    function extractUrlParams() {
+        var params = {};
+        var urlParams = location.search;
+        if (urlParams.indexOf('?') != -1) {
+            urlParams = urlParams.substr(1);
+            var paramArray = urlParams.split('&');
+            for (var i = 0; i < paramArray.length; i++) {
+                params[paramArray[i].split('=')[0]] = decodeURI(paramArray[i].split('=')[1]);
+            }
+        }
+        return params;
+    }
+
+    function gotoMobilePhoneDetailPage(number) {
+        window.location.href = 'mobilephoneDetail.html?number=' + number;
     }
 </script>
 </body>

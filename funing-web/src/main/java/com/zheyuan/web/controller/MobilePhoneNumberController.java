@@ -1,7 +1,10 @@
 package com.zheyuan.web.controller;
 
+import com.zheyuan.common.model.MobilePhoneNumber;
+import com.zheyuan.common.util.DateUtil;
 import com.zheyuan.service.MobilePhoneNumberService;
 import com.zheyuan.service.impl.result.PaginationQueryResult;
+import com.zheyuan.service.impl.result.SingleQueryResult;
 import com.zheyuan.service.query.QueryParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,28 @@ public class MobilePhoneNumberController {
     @Autowired
     private MobilePhoneNumberService mobilePhoneNumberService;
 
+    @RequestMapping(value = "/queryDetail.ajax")
+    @ResponseBody
+    public SingleQueryResult<?> queryDetail(String number) {
+        SingleQueryResult<MobilePhoneNumber> result = new SingleQueryResult<>();
+        try {
+            MobilePhoneNumber mobilePhoneNumber = mobilePhoneNumberService.queryByNumber(number);
+            if (mobilePhoneNumber != null) {
+                mobilePhoneNumber.setCreatedOnStr(DateUtil.dateToStr(mobilePhoneNumber.getCreatedOn()));
+                result.setData(mobilePhoneNumber);
+                result.setSuccess(true);
+            } else {
+                result.setMessage("号码不存在！");
+                result.setSuccess(false);
+            }
+        } catch (Exception e) {
+            result.setSuccess(false);
+            result.setMessage("查询失败");
+            System.out.println("查询失败" + e);
+        }
+        return result;
+    }
+
     /**
      * 分页查询手机号码
      *
@@ -31,6 +56,10 @@ public class MobilePhoneNumberController {
     @RequestMapping(value = "queryByPage.ajax")
     @ResponseBody
     public PaginationQueryResult<?> queryByPage(QueryParams queryParams) {
-        return mobilePhoneNumberService.queryByPage(queryParams);
+        PaginationQueryResult<MobilePhoneNumber> result = new PaginationQueryResult<>();
+        if (queryParams != null) {
+            result = mobilePhoneNumberService.queryByPage(queryParams);
+        }
+        return result;
     }
 }

@@ -11,6 +11,7 @@
 		<result property="balance" column="balance" jdbcType="DOUBLE"/>
 		<result property="priority" column="priority" jdbcType="INTEGER" />
 		<result property="remark" column="remark" jdbcType="VARCHAR" />
+		<result property="createdOn" column="created_on" jdbcType="TIMESTAMP"/>
 	</resultMap>
 
 	<sql id="allColumns">
@@ -23,6 +24,12 @@
 		WHERE id = #{id}
 	</select>
 
+	<select id="queryByNumber" parameterType="java.lang.String" resultMap="mobilePhoneNumberMap">
+		SELECT <include refid="allColumns"/>
+		FROM t_cms_mobile_phone_number
+		WHERE number = #{number}
+	</select>
+
 	<select id="queryByPage" resultMap="mobilePhoneNumberMap">
 		SELECT <include refid="allColumns"/>
 		FROM t_cms_mobile_phone_number
@@ -30,14 +37,17 @@
 		<if test="number != null and number != ''">
 			AND number LIKE CONCAT('%',#{number},'%')
 		</if>
-		<if test="operator != null and operator != 'all'">
-			AND operator LIKE CONCAT('%',#{operator},'%')
+		<if test="operators != null and operators != ''">
+			AND operator IN
+			<foreach collection="operators" item="operator" open="(" separator="," close=")">
+				#{operator}
+			</foreach>
 		</if>
 		<if test="attribution != null and attribution != ''">
-			AND attribution LIKE CONCAT('%',#{attribution},'%')
+			AND attribution = #{attribution}
 		</if>
 		ORDER BY priority ASC ,created_on DESC
-		LIMIT #{offset},#{limit}
+		LIMIT ${offset},${limit}
 	</select>
 
 	<select id="queryTotal" resultType="java.lang.Long">
@@ -47,11 +57,14 @@
 		<if test="number != null and number != ''">
 			AND number LIKE CONCAT('%',#{number},'%')
 		</if>
-		<if test="operator != null and operator != 'all'">
-			AND operator LIKE CONCAT('%',#{operator},'%')
+		<if test="operators != null and operators != ''">
+			AND operator IN
+			<foreach collection="operators" item="operator" open="(" separator="," close=")">
+				#{operator}
+			</foreach>
 		</if>
 		<if test="attribution != null and attribution != ''">
-			AND attribution LIKE CONCAT('%',#{attribution},'%')
+			AND attribution = #{attribution}
 		</if>
 	</select>
 </mapper>
