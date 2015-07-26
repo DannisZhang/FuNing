@@ -40,6 +40,10 @@ public class MobilePhoneNumberServiceImpl implements MobilePhoneNumberService {
         if (operators != null && !"".equals(operators.trim())) {
             queryParams.getParams().put("operators", operators.split(","));
         }
+        String attributions = (String) queryParams.getParams().get("attributions");
+        if (attributions != null && !"".equals(attributions.trim())) {
+            queryParams.getParams().put("attributions", attributions.split(","));
+        }
         result.setTotal(mobilePhoneNumberManager.queryTotal(queryParams.getParams()));
         result.setRows(mobilePhoneNumberManager.queryByPage(queryParams.getParams()));
 

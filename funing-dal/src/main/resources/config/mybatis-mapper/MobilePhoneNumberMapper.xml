@@ -43,8 +43,14 @@
 				#{operator}
 			</foreach>
 		</if>
-		<if test="attribution != null and attribution != ''">
-			AND attribution = #{attribution}
+		<if test="attributions != null and attributions != ''">
+			AND attribution IN
+			<foreach collection="attributions" item="attribution" open="(" separator="," close=")">
+				#{attribution}
+			</foreach>
+		</if>
+		<if test="prefix != null and prefix != ''">
+			AND number LIKE CONCAT(#{prefix},'%')
 		</if>
 		ORDER BY priority ASC ,created_on DESC
 		LIMIT ${offset},${limit}
@@ -63,8 +69,14 @@
 				#{operator}
 			</foreach>
 		</if>
-		<if test="attribution != null and attribution != ''">
-			AND attribution = #{attribution}
+		<if test="attributions != null and attributions != ''">
+			AND attribution IN
+			<foreach collection="attributions" item="attribution" open="(" separator="," close=")">
+				#{attribution}
+			</foreach>
+		</if>
+		<if test="prefix != null and prefix != ''">
+			AND number LIKE CONCAT(#{prefix},'%')
 		</if>
 	</select>
 </mapper>

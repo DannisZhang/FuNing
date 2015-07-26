@@ -85,16 +85,16 @@
                         <div class="col-lg-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="operator" value="中国移动">中国移动
+                                    <input type="checkbox" name="operator" value="中国移动" checked>中国移动
                                 </label>
                                 <label>
-                                    <input type="checkbox" name="operator" value="中国联通">中国联通
+                                    <input type="checkbox" name="operator" value="中国联通" checked>中国联通
                                 </label>
                                 <label>
-                                    <input type="checkbox" name="operator" value="中国电信">中国电信
+                                    <input type="checkbox" name="operator" value="中国电信" checked>中国电信
                                 </label>
                                 <label>
-                                    <input type="checkbox" name="operator" value="虚拟运营商">虚拟运营商
+                                    <input type="checkbox" name="operator" value="虚拟运营商" checked>虚拟运营商
                                 </label>
                             </div>
                         </div>
@@ -104,25 +104,26 @@
                             <label class="control-label" style="margin-left: 20px;text-align: left">归属地：</label>
                         </div>
                         <div class="col-lg-10">
-                            <label>
-                                <select class="form-control" style="width: 100px;" name="attributionProvince">
-                                    <option>广东省</option>
-                                    <option>福建省</option>
-                                    <option>浙江省</option>
-                                    <option>贵州省</option>
-                                    <option>海南省</option>
-                                </select>
-                            </label>
-                            <label>
-                                <select class="form-control" name="attributionCity">
-                                    <option value="深圳">深圳市</option>
-                                    <option value="广州">广州市</option>
-                                    <option value="福州">福州市</option>
-                                    <option value="福宁">福宁市</option>
-                                    <option value="厦门">厦门市</option>
-                                    <option value="贵阳">贵阳市</option>
-                                </select>
-                            </label>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="attribution" value="福州" checked>福州
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="attribution" value="厦门" checked>厦门
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="attribution" value="泉州" checked>泉州
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="attribution" value="宁德" checked>宁德
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="attribution" value="龙岩" checked>龙岩
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="attribution" value="漳州" checked>漳州
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -132,15 +133,15 @@
                         </div>
                         <div class="col-lg-10">
                             <label>
-                                <select class="form-control" id="selectNumberPrefix" style="width: 100px;" name="numberSection" disabled>
-                                    <option>不限号段</option>
-                                    <option>中国移动</option>
+                                <select class="form-control" id="selectNumberPrefix" style="width: 100px;" name="prefix">
+                                    <option value selected>不限号段</option>
+                                    <option disabled>中国移动</option>
                                     <option>139</option>
                                     <option>138</option>
                                     <option>137</option>
                                     <option>136</option>
                                     <option>134</option>
-                                    <option>中国联通</option>
+                                    <option disabled>中国联通</option>
                                     <option>130</option>
                                     <option>131</option>
                                     <option>132</option>
@@ -148,13 +149,13 @@
                                     <option>156</option>
                                     <option>185</option>
                                     <option>186</option>
-                                    <option>中国电信</option>
+                                    <option disabled>中国电信</option>
                                     <option>133</option>
                                     <option>153</option>
                                     <option>180</option>
                                     <option>181</option>
                                     <option>189</option>
-                                    <option>虚拟运营商</option>
+                                    <option disabled>虚拟运营商</option>
                                     <option>170</option>
                                 </select>
                             </label>
@@ -351,14 +352,18 @@
 
         $('#searchNumberButton').click(function () {
             var $searchNumberForm = $('#searchNumberForm');
+            var params = {};
             var operators = [];
             $searchNumberForm.find('input[type="checkbox"][name="operator"]:checked').each(function () {
                 operators.push($(this).val());
             });
-            var params = {};
             params.operators = operators.join(',');
-            params.attribution = $searchNumberForm.find('select[name="attributionCity"]').val();
-            params.numberSection = $searchNumberForm.find('select[name="numberSection"]').val();
+            var attributions = [];
+            $searchNumberForm.find('input[type="checkbox"][name="attribution"]:checked').each(function () {
+                attributions.push($(this).val());
+            });
+            params.attributions = attributions.join(',');
+            params.prefix = $searchNumberForm.find('select[name="prefix"]').val();
             params.priceRange = $searchNumberForm.find('select[name="priceRange"]').val();
             params.numberRule = $searchNumberForm.find('select[name="numberRule"]').val();
             params.containNumeric = $searchNumberForm.find('input[type="text"][name="containNumeric"]').val();
