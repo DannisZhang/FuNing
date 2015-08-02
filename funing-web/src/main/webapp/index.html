@@ -109,11 +109,35 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-9">
-            <table class="table" id="mobilePhoneNumberTable">
+        <div class="col-lg-4">
+            <table class="table" id="fuZhouNumberTable">
                 <thead>
                 <tr>
-                    <th colspan="5">为您推荐</th>
+                    <th colspan="5">福州靓号</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <table class="table" id="ningDeNumberTable">
+                <thead>
+                <tr>
+                    <th colspan="5">宁德靓号</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <table class="table" id="xuChangNumberTable">
+                <thead>
+                <tr>
+                    <th colspan="5">许昌靓号</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -136,30 +160,59 @@
     </div>
 </footer>
 <script type="text/javascript">
+    var PAGE_SIZE = 25;
     $(function () {
         $.ajax({
             url: "mobilePhoneNumber/queryByPage.ajax",
             method: "post",
-            data: {"page": 1, "rows": 20},
+            data: {"page": 1, "rows": 20,"params":{"attributions":"福州"}},
             success: function (result) {
                 var mobilePhoneNumbers = result.rows;
-                var mobilePhoneNumberTrs = "";
-                for (var i = 0; i < mobilePhoneNumbers.length;) {
-                    var tr = "<tr>";
-                    var tds = "";
-                    for (var j = 0; j < 5; j++) {
-                        if ((i + j) < mobilePhoneNumbers.length) {
-                            tds += buildMobilePhoneNumberTd(mobilePhoneNumbers[i + j]);
-                        } else {
-                            break;
-                        }
-                    }
-                    tr += tds;
-                    tr += "</tr>";
-                    mobilePhoneNumberTrs += tr;
-                    i += 5;
+                var pageSize = PAGE_SIZE;
+                if (mobilePhoneNumbers.length < 25) {
+                    pageSize = mobilePhoneNumbers.length;
                 }
-                $('#mobilePhoneNumberTable').find('tbody').html(mobilePhoneNumberTrs);
+                var mobilePhoneNumberTrs = "";
+                for (var i = 0; i < pageSize; i++) {
+                    mobilePhoneNumberTrs += buildMobilePhoneNumberTR(mobilePhoneNumbers[i]);
+                }
+                $('#fuZhouNumberTable').find('tbody').html(mobilePhoneNumberTrs);
+            }
+        });
+
+        $.ajax({
+            url: "mobilePhoneNumber/queryByPage.ajax",
+            method: "post",
+            data: {"page": 1, "rows": 20,"params":{"attributions":"宁德"}},
+            success: function (result) {
+                var mobilePhoneNumbers = result.rows;
+                var pageSize = PAGE_SIZE;
+                if (mobilePhoneNumbers.length < 25) {
+                    pageSize = mobilePhoneNumbers.length;
+                }
+                var mobilePhoneNumberTrs = "";
+                for (var i = 0; i < pageSize; i++) {
+                    mobilePhoneNumberTrs += buildMobilePhoneNumberTR(mobilePhoneNumbers[i]);
+                }
+                $('#ningDeNumberTable').find('tbody').html(mobilePhoneNumberTrs);
+            }
+        });
+
+        $.ajax({
+            url: "mobilePhoneNumber/queryByPage.ajax",
+            method: "post",
+            data: {"page": 1, "rows": 20,"params":{"attributions":"许昌"}},
+            success: function (result) {
+                var mobilePhoneNumbers = result.rows;
+                var pageSize = PAGE_SIZE;
+                if (mobilePhoneNumbers.length < 25) {
+                    pageSize = mobilePhoneNumbers.length;
+                }
+                var mobilePhoneNumberTrs = "";
+                for (var i = 0; i < pageSize; i++) {
+                    mobilePhoneNumberTrs += buildMobilePhoneNumberTR(mobilePhoneNumbers[i]);
+                }
+                $('#xuChangNumberTable').find('tbody').html(mobilePhoneNumberTrs);
             }
         });
 
@@ -206,6 +259,40 @@
         mobilePhoneNumberTd += "</a></td>";
 
         return mobilePhoneNumberTd;
+    }
+
+    function buildMobilePhoneNumberTR(mobilePhoneNumber) {
+        var mobilePhoneNumberTr = '<tr>';
+        mobilePhoneNumberTr += '<td>';
+        mobilePhoneNumberTr += '<a href="javascript:void(0);" onclick="gotoMobilePhoneDetailPage(\'' + mobilePhoneNumber.number + '\')">' + mobilePhoneNumber.number + '</a>';
+        mobilePhoneNumberTr += '</td>';
+        mobilePhoneNumberTr += '<td>';
+        mobilePhoneNumberTr += mobilePhoneNumber.attribution;
+        mobilePhoneNumberTr += '</td>';
+
+        mobilePhoneNumberTr += '<td>';
+        if (mobilePhoneNumber.floorPrice > 0) {
+            mobilePhoneNumberTr += mobilePhoneNumber.floorPrice + '元';
+        } else {
+            mobilePhoneNumberTr += '价格面议';
+        }
+        mobilePhoneNumberTr += '</td>';
+
+        mobilePhoneNumberTr += '<td>';
+        if (mobilePhoneNumber.balance > 0) {
+            mobilePhoneNumberTr += '含话费' + mobilePhoneNumber.balance + '元';
+        } else {
+            mobilePhoneNumberTr += '不含话费';
+        }
+        mobilePhoneNumberTr += '</td>';
+
+        mobilePhoneNumberTr += '<td>';
+        mobilePhoneNumberTr += '<a href="javascript:void(0);" class="btn btn-xs-custom btn-success" onclick="gotoMobilePhoneDetailPage(\'' + mobilePhoneNumber.number + '\')">详情</a>';
+        mobilePhoneNumberTr += '</td>';
+
+        mobilePhoneNumberTr += '</tr>';
+
+        return mobilePhoneNumberTr;
     }
 
     function gotoMobilePhoneDetailPage(number) {
